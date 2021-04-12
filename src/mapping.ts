@@ -82,6 +82,7 @@ export function handlePunkOffered(event: PunkOffered): void {
   punkOffered.toAddress = to.id
 
   punk.save()
+  punkOffered.save()
   to.save()
 
 }
@@ -186,7 +187,7 @@ export function handlePunkBought(event: PunkBought): void {
   to.totalPunks = to.totalPunks.plus(BigInt.fromI32(1))
   from.totalPunks = from.totalPunks.minus(BigInt.fromI32(1))
 
-  //Is there an open bid for this punk from the To? 
+  //Is there an open bid for this punk from the To?
   let openBid = PBE.load(punk.id.concat(`-`).concat(to.id).concat(`-punkBidEntered`))
   if (openBid != null) {
     to.openBidCount = to.openBidCount.minus(BigInt.fromI32(1))
